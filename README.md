@@ -8,7 +8,7 @@
 
 ``` bash
 # clone the repo
-git clone ssh://github.com/amulyakashyap09/gomongo
+git clone https://gitlab.com/amulyakashyap09/gomongo.git
 ```
 
 ``` bash
