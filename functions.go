@@ -233,8 +233,8 @@ func (conn *Connection) UpsertAllAsync(upsertAllStruct *UpsertAllStruct, callbac
 //	Output :
 //		record(interface{}) : Returns the mongo Object
 //		error : Return error object if found
-func (conn *Connection) FindByID(findByIDStruct *FindByIDStruct) (bson.M{}, error) {
-	var record bson.M{}
+func (conn *Connection) FindByID(findByIDStruct *FindByIDStruct) (interface{}, error) {
+	var record interface{}
 	sessionCopy := conn.Session.Copy()
 	defer sessionCopy.Close()
 	collection := sessionCopy.DB(conn.Database).C(conn.Collection)
@@ -271,9 +271,9 @@ func (conn *Connection) FindByIDAsync(findByIDStruct *FindByIDStruct, callback c
 // Output Parameters
 // 		records([]interface{]}) : Return the result mapped as interface
 // 		error(error) : if it was error then return error else nil
-func (conn *Connection) Find(findStruct *FindStruct) ([]bson.M{}, error) {
+func (conn *Connection) Find(findStruct *FindStruct) ([]interface{}, error) {
 
-	var records []bson.M{}
+	var records []interface{}
 	var err error
 
 	sessionCopy := conn.Session.Copy()
@@ -326,9 +326,9 @@ func (conn *Connection) FindAsync(findStruct *FindStruct, callback chan *Callbac
 // Output Parameters
 // 		records([]interface{}) : all the records present in database
 // 		error : if it was error then return error else nil
-func (conn *Connection) FindAll(findAllStruct *FindAllStruct) ([]bson.M{}, error) {
+func (conn *Connection) FindAll(findAllStruct *FindAllStruct) ([]interface{}, error) {
 
-	var records []bson.M{}
+	var records []interface{}
 
 	sessionCopy := conn.Session.Copy()
 	defer sessionCopy.Close()
