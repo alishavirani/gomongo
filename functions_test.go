@@ -1,4 +1,4 @@
-package MongoWrapper
+package gomongo
 
 import (
 	"fmt"
