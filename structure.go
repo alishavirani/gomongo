@@ -47,6 +47,7 @@ type Connection struct {
 }
 
 type Config struct {
+	Uri   string
 	DbType   string
 	Hosts    string //connection url i.e, localhost:27017
 	Database string //database name
