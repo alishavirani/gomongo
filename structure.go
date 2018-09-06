@@ -52,6 +52,7 @@ type Config struct {
 	Database string //database name
 	Username string //username
 	Password string //password
+	AuthDatabase string //auth db
 }
 
 type BulkInsertStruct struct {
