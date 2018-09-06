@@ -20,6 +20,8 @@ func (n MongoDB) Connect(config *Config) (*Connection, error) {
 }
 
 func ConnectMongo(config *Config) (*Connection, error) {
+	
+	
 	mongoDBDialInfo := &mgo.DialInfo{
 		Addrs:    []string{config.Hosts},
 		Timeout:  60 * time.Second,
@@ -28,10 +30,12 @@ func ConnectMongo(config *Config) (*Connection, error) {
 		Username: config.Username,
 		Password: config.Password,
 	}
+	
+	fmt.Println("echo : ", config, mongoDBDialInfo)
 
 	mongoSession, err := mgo.DialWithInfo(mongoDBDialInfo)
 	if err != nil {
-		log.Println(err)
+		log.Println("error kalp : ", err, config, mongoDBDialInfo)
 		return nil, err
 	}
 
