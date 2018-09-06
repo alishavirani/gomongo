@@ -31,7 +31,7 @@ func ConnectMongo(config *Config) (*Connection, error) {
 		Password: config.Password,
 	}
 	
-	fmt.Println("echo : ", config, mongoDBDialInfo)
+	log.Println("echo : ", config, mongoDBDialInfo)
 
 	mongoSession, err := mgo.DialWithInfo(mongoDBDialInfo)
 	if err != nil {
