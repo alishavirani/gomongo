@@ -23,7 +23,7 @@ func ConnectMongo(config *Config) (*Connection, error) {
 	mongoDBDialInfo := &mgo.DialInfo{
 		Addrs:    []string{config.Hosts},
 		Timeout:  60 * time.Second,
-		Database: config.Database,
+		Database: config.AuthDatabase,
 		Username: config.Username,
 		Password: config.Password,
 	}
