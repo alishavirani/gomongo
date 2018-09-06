@@ -7,7 +7,7 @@ import (
 	mgo "github.com/globalsign/mgo"
 )
 
-//Factory function
+// Connect ...
 func (n MongoDB) Connect(config *Config) (*Connection, error) {
 	switch config.DbType {
 	case MONGODB:
@@ -19,6 +19,7 @@ func (n MongoDB) Connect(config *Config) (*Connection, error) {
 	}
 }
 
+// ConnectMongo ...
 func ConnectMongo(config *Config) (*Connection, error) {
 	
 	
@@ -30,12 +31,29 @@ func ConnectMongo(config *Config) (*Connection, error) {
 		Username: config.Username,
 		Password: config.Password,
 	}
-	
-	log.Println("echo : ", config, mongoDBDialInfo)
 
 	mongoSession, err := mgo.DialWithInfo(mongoDBDialInfo)
 	if err != nil {
-		log.Println("error kalp : ", err, config, mongoDBDialInfo)
+		log.Println("error : ", err)
+		return nil, err
+	}
+
+	mongoSession.SetMode(mgo.Monotonic, true)
+
+	conn := new(Connection)
+	conn.Session = mongoSession
+	conn.Collections = make(map[string]*mgo.Collection)
+	conn.Session.DB(config.Database)
+	conn.Database = config.Database
+
+	return conn, nil
+}
+
+// Dial ...
+func Dial(config *Config) (*Connection, error) {
+	mongoSession, err := mgo.Dial(config.Uri)
+	if err != nil {
+		log.Println("error : ", err)
 		return nil, err
 	}
 
