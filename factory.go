@@ -26,13 +26,15 @@ func ConnectMongo(config *Config) (*Connection, error) {
 	var mongoSession *mgo.Session
 	var err error
 
-	if len(config.Uri) > 0 {
+	if len(config.Uri) <= 0 {
 		mongoSession, err = mgo.Dial(config.Uri)
 	}else {
 		mongoDBDialInfo = &mgo.DialInfo{
 			Addrs:    []string{config.Hosts},
 			Timeout:  60 * time.Second,
 			Database: config.Database,
+			Service: "mongodb",
+			Mechanism: "MONGODB-CR",
 			Source: config.AuthDatabase,
 			Username: config.Username,
 			Password: config.Password,
@@ -42,11 +44,12 @@ func ConnectMongo(config *Config) (*Connection, error) {
 	}
 	
 	if err != nil {
-		log.Println("error : ", err)
+		log.Println("connection error : ", err)
 		return nil, err
 	}
 
 	mongoSession.SetMode(mgo.Monotonic, true)
+	mongoSession.SetSafe(&mgo.Safe{})
 
 	conn := new(Connection)
 	conn.Session = mongoSession
