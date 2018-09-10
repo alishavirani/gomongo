@@ -26,7 +26,7 @@ func ConnectMongo(config *Config) (*Connection, error) {
 	var mongoSession *mgo.Session
 	var err error
 
-	if len(config.Uri) <= 0 {
+	if len(config.Uri) > 0 {
 		mongoSession, err = mgo.Dial(config.Uri)
 	}else {
 		mongoDBDialInfo = &mgo.DialInfo{
