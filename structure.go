@@ -47,13 +47,15 @@ type Connection struct {
 }
 
 type Config struct {
-	Uri   string
-	DbType   string
-	Hosts    string //connection url i.e, localhost:27017
-	Database string //database name
-	Username string //username
-	Password string //password
-	AuthDatabase string //auth db
+	Uri            string
+	DbType         string
+	Hosts          string //connection url i.e, localhost:27017
+	Database       string //database name
+	ReplicaSetName string //database name
+	Username       string //username
+	Password       string //password
+	AuthDatabase   string //auth db
+	Direct         bool
 }
 
 type BulkInsertStruct struct {
