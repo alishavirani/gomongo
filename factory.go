@@ -49,7 +49,8 @@ func ConnectMongo(config *Config) (*Connection, error) {
 	}
 
 	mongoSession.SetMode(mgo.Monotonic, true)
-	mongoSession.SetSafe(&mgo.Safe{})
+	// mongoSession.SetSafe(&mgo.Safe{})
+	mongoSession.SetSafe(&mgo.Safe{WMode: "majority"})
 
 	conn := new(Connection)
 	conn.Session = mongoSession
