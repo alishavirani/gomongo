@@ -30,14 +30,14 @@ func ConnectMongo(config *Config) (*Connection, error) {
 		mongoSession, err = mgo.Dial(config.Uri)
 	}else {
 		mongoDBDialInfo = &mgo.DialInfo{
-			Addrs:    []string{config.Hosts},
-			Timeout:  60 * time.Second,
-			Database: config.Database,
-			Service: "mongodb",
-			Mechanism: "MONGODB-CR",
-			Source: config.AuthDatabase,
-			Username: config.Username,
-			Password: config.Password,
+			Addrs:          []string{config.Hosts},
+			Timeout:        60 * time.Second,
+			Database:       config.Database,
+			ReplicaSetName: config.ReplicaSetName,
+			Source:         config.AuthDatabase,
+			Username:       config.Username,
+			Password:       config.Password,
+			Direct:         config.Direct,
 		}
 	
 		mongoSession, err = mgo.DialWithInfo(mongoDBDialInfo)
