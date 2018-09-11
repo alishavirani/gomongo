@@ -34,6 +34,7 @@ func ConnectMongo(config *Config) (*Connection, error) {
 			Timeout:        60 * time.Second,
 			Database:       config.Database,
 			ReplicaSetName: config.ReplicaSetName,
+			Mechanism:      "SCRAM-SHA-1",
 			Source:         config.AuthDatabase,
 			Username:       config.Username,
 			Password:       config.Password,
