@@ -48,7 +48,7 @@ func ConnectMongo(config *Config) (*Connection, error) {
 		return nil, err
 	}
 
-	mongoSession.SetMode(mgo.Monotonic, true)
+	//mongoSession.SetMode(mgo.Monotonic, true)
 	// mongoSession.SetSafe(&mgo.Safe{})
 	mongoSession.SetSafe(&mgo.Safe{WMode: "majority"})
 	mongoSession.SetPoolLimit(4000)
