@@ -147,14 +147,14 @@ func (conn *Connection) UpsertAsync(upsertStruct *UpsertStruct, callback chan *C
 
 // UpdateAll : Function Updates all the record into the collection
 // Input Parameters
-// 		*UpdateAllStruct (Struct) :
+// 		UpdateAllStruct (Struct) :
 //	 		Data([] interfaces{}]) : the object which has to be inserted
 // 			Query(bson Object) : Criteria as per the update should execute
 // Output Parameters
 // 		records(*mgo.ChangeInfo) : returns updated, matched, modified counts
 // 		error : if it was error then return error else nil
 
-func (conn *Connection) UpdateAll(updateAllStruct *UpdateAllStruct) (*mgo.ChangeInfo, error) {
+func (conn *Connection) UpdateAll(updateAllStruct UpdateAllStruct) (*mgo.ChangeInfo, error) {
 	sessionCopy := conn.Session.Copy()
 	defer sessionCopy.Close()
 	collection := sessionCopy.DB(conn.Database).C(conn.Collection)
@@ -171,14 +171,14 @@ func (conn *Connection) UpdateAll(updateAllStruct *UpdateAllStruct) (*mgo.Change
 
 // UpdateAllAsync : Function Updates all the record into the collection
 // Input Parameters
-// 		*UpdateAllStruct (Struct) :
+// 		UpdateAllStruct (Struct) :
 // 			Query(bson Object) : Criteria as per the update should execute
 //	 		Data([] interfaces{}]) : the object which has to be inserted
 //			callback (channel) : which returns data to goroutine
 // Output Parameters
 // 		callback(data, error) : sends updated, matched, modified counts back to channel
 
-func (conn *Connection) UpdateAllAsync(updateAllStruct *UpdateAllStruct, callback chan *Callback) {
+func (conn *Connection) UpdateAllAsync(updateAllStruct UpdateAllStruct, callback chan *Callback) {
 	records, err := conn.UpdateAll(updateAllStruct)
 	cb := new(Callback)
 	cb.Data = records

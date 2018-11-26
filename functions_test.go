@@ -290,7 +290,8 @@ func TestUpdateAll(t *testing.T) {
 
 	assert.Nil(t, err)
 
-	updateStructAll := new(UpdateAllStruct)
+	var updateStructAll UpdateAllStruct
+	// updateStructAll := new(UpdateAllStruct)
 	conn.Collection = "users"
 	updateStructAll.Query = bson.M{"_id": bson.ObjectIdHex("5b28da94a34bd180f5ab0f5a")}
 	updateStructAll.Data = bson.M{"$set": bson.M{"firstname": "AmulyaXXX", "lastname": "Kashyap", "age": 26, "phone": "9559974779", "salary": "7854693210", "datetime": time.Now()}}
@@ -305,6 +306,7 @@ func TestUpdateAllAsync(t *testing.T) {
 	defer Close(conn)
 	assert.Nil(t, err)
 	outputCh := make(chan *Callback)
+	var updateStructAll UpdateAllStruct
 	updateStructAll := new(UpdateAllStruct)
 	conn.Collection = "users"
 	updateStructAll.Query = bson.M{"_id": bson.ObjectIdHex("5b28da94a34bd180f5ab0f5a")}
