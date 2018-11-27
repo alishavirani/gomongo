@@ -22,6 +22,7 @@ type Operations interface {
 	UpdateAsync(*UpdateStruct, *Callback)
 	Upsert(*UpsertStruct) (*mgo.ChangeInfo, error)
 	UpsertAsync(*UpsertStruct, *Callback)
+	UpdateOne(UpdateOneStruct) error
 	UpdateAll(UpdateAllStruct) (*mgo.ChangeInfo, error)
 	UpdateAllAsync(UpdateAllStruct, *Callback)
 	UpsertAll(*UpsertAllStruct) (*mgo.ChangeInfo, error)
@@ -75,6 +76,11 @@ type UpdateStruct struct {
 type UpsertStruct struct {
 	Id   string
 	Data interface{}
+}
+
+type UpdateOneStruct struct {
+	Query interface{}
+	Data  interface{}
 }
 
 type UpdateAllStruct struct {

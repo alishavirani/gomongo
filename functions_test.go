@@ -267,6 +267,20 @@ func TestUpdate(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+func TestUpdateOne(t *testing.T) {
+	conn, err := ConnectForTest()
+	defer Close(conn)
+	assert.Nil(t, err)
+
+	updateStruct := new(UpdateOneStruct)
+	conn.Collection = "users"
+	updateStruct.Query = bson.M{"firstname": "Amulya", "lastname": "Kashyap"}
+	updateStruct.Data = bson.M{"$set": bson.M{"firstname": "AmulyaXXX", "lastname": "KashyapXXX", "age": 26, "phone": "9559974779", "salary": "7854693210", "datetime": time.Now()}}
+
+	err = conn.UpdateOne(updateStruct)
+	assert.Nil(t, err)
+}
+
 func TestUpdateAsync(t *testing.T) {
 	conn, err := ConnectForTest()
 	defer Close(conn)

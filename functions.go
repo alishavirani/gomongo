@@ -145,6 +145,29 @@ func (conn *Connection) UpsertAsync(upsertStruct *UpsertStruct, callback chan *C
 	callback <- cb
 }
 
+// UpdateOne : Function Updates the matching record into the collection
+// Input Parameters
+// 		updateOneStruct (Struct) :
+//	 		Data(interfaces{}]) : the object which has to be inserted
+// 			Query(bson Object) : Criteria as per the update should execute
+// Output Parameters
+// 		error : if it was error then return error else nil
+
+func (conn *Connection) UpdateOne(updateOneStruct UpdateOneStruct) error {
+	sessionCopy := conn.Session.Copy()
+	defer sessionCopy.Close()
+	collection := sessionCopy.DB(conn.Database).C(conn.Collection)
+	err := collection.Update(updateOneStruct.Query, updateOneStruct.Data)
+	if err != nil {
+		log.Println(err)
+		if err.Error() == MongoErrorNotFound.Error() {
+			err = nil
+		}
+		return err
+	}
+	return nil
+}
+
 // UpdateAll : Function Updates all the record into the collection
 // Input Parameters
 // 		UpdateAllStruct (Struct) :
